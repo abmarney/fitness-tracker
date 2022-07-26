@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Fitness Tracker</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Hello, World!</h1>
+    {% if exercises|length < 1 %}
+    <h4>There are no exercises, create one!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Exercise Name</th>
+            <th>Reps/Sets</th>
+        </tr>
+        {% for exercise in exercises %}
+            <tr>
+                <td>{{ exercise.name }}</td>
+                <td>{{ exercise.reps }} x {{ exercise.sets }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <form action="/" method="POST">
+        <label for="name">Exercise Name:</label>
+        <input type="text" name="name" id="name">
+        <label for="reps">Exercise Reps:</label>
+        <input type="text" name="reps" id="reps">
+        <label for="sets">Exercise Sets:</label>
+        <input type="text" name="sets" id="reps">
+        <input type="submit" value="Add Exercise">
+    </form>
+</div>
+{% endblock %}
