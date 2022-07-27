@@ -10,19 +10,28 @@ class Exercise(db.Model):
     name = db.Column(db.String(200), primary_key=True)
     reps = db.Column(db.Integer)
     sets = db.Column(db.Integer)
-    #id = db.Column(db.Integer)
+    id = db.Column(db.Integer)
     def __repr__(self):
         return self.name
 
 class Workout(db.Model):
     name = db.Column(db.String(200), primary_key=True)
-    #routine = [Exercise()]
-    #count = len(routine)
+    routine = [Exercise()]
+    count = len(routine)
     def __repr__(self):
         return self.name
 
-@app.route('/', methods=['POST','GET'])
+@app.route('/')
 def index():
+    routines=Workout.query.order_by(Workout.name).all()
+    return render_template('index.html', routines=routines)
+
+@app.route('/CreateRoutine/', methods=['POST','GET'])
+def create_routine():
+    return render_template('routines.html')
+    
+@app.route('/Exercises/', methods=['POST','GET'])
+def routine():
     if request.method == 'POST':
         ex_name = request.form['name']
         ex_reps = request.form['reps']
