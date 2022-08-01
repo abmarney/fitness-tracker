@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Create Workout</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    {% if not workout %}
+        <h1>Create your workout</h1>
+
+        <form action="/CreateWorkout/" method="POST">
+            <input type="text" name="name" id="name">
+            <input type="submit" value="Create Workout">
+        </form>
+    {% else %}
+        {% if workout.routine|length > 0 %}
+            <h1>Update your routine</h1>
+            <table>
+                <tr>
+                    <th>Exercise Name</th>
+                    <th>Reps/Sets</th>
+                </tr>
+                {% for exercise in workout.routine %}
+                    <tr>
+                        <td>{{exercise.name}}</td>
+                        <td>{{exercise.reps}}/{{exercise.sets}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        <br>
+        <form action="/update/{{workout.id}}" method="POST">
+            <input type="text" name="name" id="name" value="">
+            <input type="text" name="reps" id="reps" value="">
+            <input type="text" name="sets" id="sets" value="">
+            <input type="submit" value="Add Exercise">
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
+
