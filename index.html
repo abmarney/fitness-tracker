@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Fitness Tracker</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Your Workouts</h1>
+    {% if workouts|length < 1 %}
+    <h4>You have no workouts. Create one now!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Workout</th>
+        </tr>
+        {% for workout in workouts %}
+
+            <tr>
+                <td>
+                    <a href="/workout/{{workout.id}}">{{workout.name}}</a>
+                    <a href="/delete/{{workout.id}}">Delete</a>
+                    <a href="/update/{{workout.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <form action="/CreateWorkout/" method="GET">
+        <input type="submit" value="Create Workout">
+    </form>
+</div>
+{% endblock %}
