@@ -14,17 +14,23 @@
             <input type="submit" value="Create Workout">
         </form>
     {% else %}
+        <h1>Update your Workout</h1>
         {% if workout.routine|length > 0 %}
-            <h1>Update your routine</h1>
             <table>
                 <tr>
                     <th>Exercise Name</th>
-                    <th>Reps/Sets</th>
+                    <th>Reps x Sets</th>
+                    <th>
+                    </th>
                 </tr>
                 {% for exercise in workout.routine %}
                     <tr>
                         <td>{{exercise.name}}</td>
-                        <td>{{exercise.reps}}/{{exercise.sets}}</td>
+                        <td>{{exercise.reps}} x {{exercise.sets}}</td>
+                        <td>
+                            <a href="/workout/delete/{{exercise.id}}">Delete</a>
+                            <a href="/workout/update/{{exercise.id}}">Update</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
@@ -36,7 +42,12 @@
             <input type="text" name="sets" id="sets" value="">
             <input type="submit" value="Add Exercise">
         </form>
+        
     {% endif %}
+    <br>
+    <form action="/" method="GET">
+        <input type="submit" value="Back to Workouts">
+    </form>
 </div>
 {% endblock %}
 
