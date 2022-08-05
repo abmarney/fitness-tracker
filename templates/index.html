@@ -19,14 +19,21 @@
             <tr>
                 <td>
                     <a href="/workout/{{workout.id}}">{{workout.name}}</a>
-                    <a href="/delete/{{workout.id}}">Delete</a>
                     <a href="/update/{{workout.id}}">Update</a>
+                    <a href="/delete/{{workout.id}}">Delete</a>
+                    {% if loop.index > 1 %}
+                        <a href="/moveup/{{workout.id}}/{{loop.previtem.id}}">Move Up</a>
+                    {% endif %}
+                    {% if loop.index < loop.length %}
+                        <a href="/movedown/{{workout.id}}/{{loop.nextitem.id}}">Move Down</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
     </table>
     {% endif %}
-    <form action="/CreateWorkout/" method="GET">
+    <form action="/CreateWorkout/" method="POST">
+        <input type="text" name="name" id="name">
         <input type="submit" value="Create Workout">
     </form>
 </div>
